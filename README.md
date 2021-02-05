@@ -1,7 +1,7 @@
 Worlds
 ----
 
-A 2D, survival-mode, platformer game featuring particle emitters, rudementary AI, and physics.
+A 2D, survival-mode, platformer game featuring particle emitters, rudimentary AI, and physics.
 
 ----
 ### Usage
