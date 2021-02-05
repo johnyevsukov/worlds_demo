@@ -36,14 +36,29 @@ objective_pen.color("white")
 objective_pen.penup()
 objective_pen.setposition(-440, 420)
 objectivestring = "Current Objective: {}".format(obj)
-objective_pen.write(objectivestring, False, align="left", font=("comic sans ms", 20, "normal"))
+objective_pen.write(
+    objectivestring, False, align="left", font=("comic sans ms", 20, "normal")
+)
 objective_pen.hideturtle()
 
 GRAVITY = -3.2
 STATE = False
 FLOOR = -427
 
-game_shapes = ["bob.gif", "bob_left.gif", "bob_right.gif", "flame.gif", "button.gif", "snow_ball.gif", "fan.gif", "snow_flake.gif", "obo.gif", "obo_left.gif", "obo_right.gif", "coin.gif"]
+game_shapes = [
+    "bob.gif",
+    "bob_left.gif",
+    "bob_right.gif",
+    "flame.gif",
+    "button.gif",
+    "snow_ball.gif",
+    "fan.gif",
+    "snow_flake.gif",
+    "obo.gif",
+    "obo_left.gif",
+    "obo_right.gif",
+    "coin.gif",
+]
 for game_shape in game_shapes:
     turtle.register_shape(game_shape)
 
@@ -58,31 +73,31 @@ checker.stamp()
 x = -475
 y = 475
 for _ in range(20):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     y -= 50
 x = -425
 y = 475
 for _ in range(19):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     x += 50
 x = 475
 y = 425
 for _ in range(19):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     y -= 50
 x = 425
 y = -475
 for _ in range(19):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     x -= 50
 x = -425
 y = -325
 for _ in range(16):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     x += 50
     if x == -25:
@@ -90,13 +105,13 @@ for _ in range(16):
 x = -325
 y = -175
 for _ in range(14):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     x += 50
 x = -425
 y = -25
 for _ in range(16):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     x += 50
     if x == -25:
@@ -104,7 +119,7 @@ for _ in range(16):
 x = -325
 y = 125
 for _ in range(16):
-    stamper.goto(x,y)
+    stamper.goto(x, y)
     stamper.stamp()
     x += 50
     if x == -125:
@@ -114,7 +129,8 @@ for _ in range(16):
     elif x == 375:
         break
 
-class Sprite():
+
+class Sprite:
     def __init__(self, x, y, shape, color):
         self.x = x
         self.y = y
@@ -148,20 +164,20 @@ class Player(Sprite):
         sprite_stamper.color("lightgreen")
         sprite_stamper.pendown()
         sprite_stamper.setheading(0)
-        sprite_stamper.fd(.20 * self.health)
+        sprite_stamper.fd(0.20 * self.health)
         if self.health < 100:
             sprite_stamper.color("red")
-            sprite_stamper.fd(.20 * (self.max_health - self.health))
+            sprite_stamper.fd(0.20 * (self.max_health - self.health))
         sprite_stamper.penup()
 
     def left(self):
         length = len(self.left_token_bucket)
-        for _ in range(10-length):
+        for _ in range(10 - length):
             self.left_token_bucket.append("token")
 
     def right(self):
         length = len(self.right_token_bucket)
-        for _ in range(10-length):
+        for _ in range(10 - length):
             self.right_token_bucket.append("token")
 
     def move_left(self):
@@ -179,7 +195,7 @@ class Player(Sprite):
     def up(self):
         if self.y == self.floor:
             length = len(self.up_token_bucket)
-            for _ in range(1-length):
+            for _ in range(1 - length):
                 self.up_token_bucket.append("token")
 
     def jump(self):
@@ -188,7 +204,9 @@ class Player(Sprite):
 
     def update(self):
         self.y += self.gravity
-        if (self.x >= -20 and self.x <= 20 and self.y <= -250) or (self.x >= 385 and self.x <= 415 and self.y <= -102 and self.y >= -300):
+        if (self.x >= -20 and self.x <= 20 and self.y <= -250) or (
+            self.x >= 385 and self.x <= 415 and self.y <= -102 and self.y >= -300
+        ):
             self.gravity = 6
         else:
             self.gravity = -3.2
@@ -201,6 +219,7 @@ class Player(Sprite):
         if self.y >= -150 and self.x >= -350 and self.x <= 350:
             self.floor = -130
 
+
 class EnemyAI(Sprite):
     def __init__(self, x, y, shape, color):
         super().__init__(x, y, shape, color)
@@ -211,20 +230,20 @@ class EnemyAI(Sprite):
         sprite_stamper.color("lightgreen")
         sprite_stamper.pendown()
         sprite_stamper.setheading(0)
-        sprite_stamper.fd(.20 * self.health)
+        sprite_stamper.fd(0.20 * self.health)
         if self.health < 100:
             sprite_stamper.color("red")
-            sprite_stamper.fd(.20 * (self.max_health - self.health))
+            sprite_stamper.fd(0.20 * (self.max_health - self.health))
         sprite_stamper.penup()
 
     def left(self):
         length = len(self.left_token_bucket)
-        for _ in range(10-length):
+        for _ in range(10 - length):
             self.left_token_bucket.append("token")
 
     def right(self):
         length = len(self.right_token_bucket)
-        for _ in range(10-length):
+        for _ in range(10 - length):
             self.right_token_bucket.append("token")
 
     def move_left(self):
@@ -242,10 +261,10 @@ class EnemyAI(Sprite):
     def up(self):
         if self.y == self.floor:
             length = len(self.up_token_bucket)
-            for _ in range(1-length):
+            for _ in range(1 - length):
                 self.up_token_bucket.append("token")
 
-    '''
+    """
 
     - we want to move away from hard coded coordiantes
 
@@ -262,7 +281,7 @@ class EnemyAI(Sprite):
     - Things like fountains should be classes
         - references to them should be stored in a list which will be a property of the world
 
-    '''
+    """
 
     def update(self):
         if self.y > player.y:
@@ -275,7 +294,6 @@ class EnemyAI(Sprite):
             elif self.x > 50 and self.y == -280:
                 self.move_left()
 
-
         if self.y < player.y:
             if self.x >= 20 and self.y == -427:
                 self.move_left()
@@ -286,13 +304,14 @@ class EnemyAI(Sprite):
             elif self.x > 50 and self.y == -280:
                 self.move_right()
 
-
         if self.x < player.x and (self.y <= player.y + 20 and self.y >= player.y - 20):
             self.move_right()
         if self.x > player.x and (self.y <= player.y + 20 and self.y >= player.y - 20):
             self.move_left()
         self.y += self.gravity
-        if (self.x >= -20 and self.x <= 20 and self.y <= -250) or (self.x >= 385 and self.x <= 415 and self.y <= -102 and self.y >= -300):
+        if (self.x >= -20 and self.x <= 20 and self.y <= -250) or (
+            self.x >= 385 and self.x <= 415 and self.y <= -102 and self.y >= -300
+        ):
             self.gravity = 6
             if self.x < player.x and (self.y > player.y and player.y == -427):
                 self.move_right()
@@ -318,20 +337,21 @@ class EnemyAI(Sprite):
             self.floor = -130
 
 
-class FireParticle():
+class FireParticle:
     state = "off"
+
     def __init__(self, x, y, color, shape):
         self.dx = 0
         self.dy = 0
-        self.dxx = random.randint(-15,15)
-        self.dyy = random.randint(-15,15)
+        self.dxx = random.randint(-15, 15)
+        self.dyy = random.randint(-15, 15)
         self.x = x
         self.y = y
         self.state = "off"
         self.shape = shape
         self.color = color
-        self.size_length = .20
-        self.size_width = .20
+        self.size_length = 0.20
+        self.size_width = 0.20
         # self.heading = random.randint(0, 360)
 
     def update_expl(self):
@@ -339,11 +359,11 @@ class FireParticle():
         self.y += self.dyy
 
     def update(self):
-        self.dx = random.randint(1,10)
-        self.dy = random.randint(-2,2)
+        self.dx = random.randint(1, 10)
+        self.dy = random.randint(-2, 2)
         self.x += self.dx
         self.y += self.dy
-        if self.x > player.x + random.randint(150,170):
+        if self.x > player.x + random.randint(150, 170):
             self.y = player.y
             self.x = player.x + 20
 
@@ -354,15 +374,16 @@ class FireParticle():
         stamper.shapesize(self.size_length, self.size_width)
         stamper.stamp()
 
-class SnowBall():
+
+class SnowBall:
     def __init__(self, x, y, start_location, shape, color):
         self.dx = 0
         self.dy = 0
         self.x = x
         self.y = y
         self.start_location = start_location
-        self.size_length = .5
-        self.size_width = .5
+        self.size_length = 0.5
+        self.size_width = 0.5
         self.shape = shape
         self.color = color
         self.switch = True
@@ -374,7 +395,9 @@ class SnowBall():
             self.dx = 5
             if STATE == False:
                 if self.x == -250:
-                    left_snowballs.append(SnowBall(-425, -325, "left", "snow_ball.gif", "white"))
+                    left_snowballs.append(
+                        SnowBall(-425, -325, "left", "snow_ball.gif", "white")
+                    )
                     print("append")
             if self.x == 450:
                 STATE = True
@@ -388,7 +411,7 @@ class SnowBall():
         if self.y <= -437:
             self.y = -437
         if self.x > player.x - 12 and self.x < player.x + 12 and self.switch == True:
-            player.health -= .5
+            player.health -= 0.5
             print("hello")
             self.switch = False
         if self.x > player.x + 13:
@@ -402,14 +425,14 @@ class SnowBall():
         stamper.stamp()
 
 
-class FanParticle():
+class FanParticle:
     def __init__(self, x, y, shape, color):
         self.dx = 0
-        self.dy = random.randint(1,3)
+        self.dy = random.randint(1, 3)
         self.x = x
         self.y = y
-        self.size_length = .2
-        self.size_width = .2
+        self.size_length = 0.2
+        self.size_width = 0.2
         self.shape = shape
         self.color = color
 
@@ -418,8 +441,8 @@ class FanParticle():
         self.y += self.dy
         if self.y >= -250:
             self.y = -430
-            random.randint(-15,15)
-            self.dy = random.randint(1,5)
+            random.randint(-15, 15)
+            self.dy = random.randint(1, 5)
             # self.dy = random.randint(1,7)
 
     def update_two(self):
@@ -427,8 +450,8 @@ class FanParticle():
         self.y += self.dy
         if self.y >= -104:
             self.y = -282
-            random.randint(-15,15)
-            self.dy = random.randint(1,5)
+            random.randint(-15, 15)
+            self.dy = random.randint(1, 5)
             # self.dy = random.randint(1,7)
 
     def render(self, stamper):
@@ -446,6 +469,7 @@ def fire_fire_particles():
         FireParticle.state = "on"
     elif FireParticle.state == "on":
         FireParticle.state = "off"
+
 
 player = Player(425, -427, "bob.gif", "white")
 
@@ -470,9 +494,11 @@ right_snowballs = []
 fan_particles = []
 fan_particles_two = []
 for _ in range(10):
-    fan_particles.append(FanParticle(random.randint(-15,15), -430, "circle", "white"))
+    fan_particles.append(FanParticle(random.randint(-15, 15), -430, "circle", "white"))
 for _ in range(10):
-    fan_particles_two.append(FanParticle(random.randint(385,415), -282, "circle", "white"))
+    fan_particles_two.append(
+        FanParticle(random.randint(385, 415), -282, "circle", "white")
+    )
 
 game_screen.listen()
 game_screen.onkeypress(player.left, "Left")
@@ -494,7 +520,7 @@ while True:
         elif FireParticle.state == "off":
             if fire_particle.x < player.x + 140:
                 fire_particle.update()
-            elif fire_particle.x >= player.x + random.randint(120,139):
+            elif fire_particle.x >= player.x + random.randint(120, 139):
                 fire_particle.y = 1000
                 fire_particle.x = 1000
         fire_particle.render(sprite_stamper)
