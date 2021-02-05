@@ -1,2 +1,2 @@
 game:
-	python3 portal.py
+	python3 worlds.py
