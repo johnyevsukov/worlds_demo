@@ -2,26 +2,26 @@
 # John Yevsukov
 # October 15, 2020
 
-import turtle
 import math
 import os
 import random
 import time
+import turtle
 from datetime import datetime, timedelta
 
 
 game_screen = turtle.Screen()
 game_screen.tracer(0)
 game_screen.title("Worlds")
-game_screen.bgpic("bg.gif")
+game_screen.bgpic("assets/sprites/bg.gif")
 game_screen.bgcolor("navy")
 
-turtle.register_shape("ice_block.gif")
+turtle.register_shape("assets/sprites/ice_block.gif")
 
 stamper = turtle.Turtle()
 stamper.speed(0)
 stamper.hideturtle()
-stamper.shape("ice_block.gif")
+stamper.shape("assets/sprites/ice_block.gif")
 stamper.penup()
 
 sprite_stamper = turtle.Turtle()
@@ -46,25 +46,25 @@ STATE = False
 FLOOR = -427
 
 game_shapes = [
-    "bob.gif",
-    "bob_left.gif",
-    "bob_right.gif",
-    "flame.gif",
-    "button.gif",
-    "snow_ball.gif",
-    "fan.gif",
-    "snow_flake.gif",
-    "obo.gif",
-    "obo_left.gif",
-    "obo_right.gif",
-    "coin.gif",
+    "assets/sprites/bob.gif",
+    "assets/sprites/bob_left.gif",
+    "assets/sprites/bob_right.gif",
+    "assets/sprites/flame.gif",
+    "assets/sprites/button.gif",
+    "assets/sprites/snow_ball.gif",
+    "assets/sprites/fan.gif",
+    "assets/sprites/snow_flake.gif",
+    "assets/sprites/obo.gif",
+    "assets/sprites/obo_left.gif",
+    "assets/sprites/obo_right.gif",
+    "assets/sprites/coin.gif",
 ]
 for game_shape in game_shapes:
     turtle.register_shape(game_shape)
 
 checker = turtle.Turtle()
 checker.speed(0)
-checker.shape("coin.gif")
+checker.shape("assets/sprites/coin.gif")
 checker.hideturtle()
 checker.penup()
 checker.goto(-225, -127)
@@ -181,13 +181,13 @@ class Player(Sprite):
             self.right_token_bucket.append("token")
 
     def move_left(self):
-        self.shape = "bob_left.gif"
+        self.shape = "assets/sprites/bob_left.gif"
         self.x -= 5
         if self.x < -435:
             self.x = -435
 
     def move_right(self):
-        self.shape = "bob_right.gif"
+        self.shape = "assets/sprites/bob_right.gif"
         self.x += 5
         if self.x > 435:
             self.x = 435
@@ -199,7 +199,7 @@ class Player(Sprite):
                 self.up_token_bucket.append("token")
 
     def jump(self):
-        os.system("afplay jump_2.wav&")
+        os.system("afplay assets/sounds/jump_2.wav&")
         self.y += 55
 
     def update(self):
@@ -247,13 +247,13 @@ class EnemyAI(Sprite):
             self.right_token_bucket.append("token")
 
     def move_left(self):
-        self.shape = "obo_left.gif"
+        self.shape = "assets/sprites/obo_left.gif"
         self.x -= 4
         if self.x < -435:
             self.x = -435
 
     def move_right(self):
-        self.shape = "obo_right.gif"
+        self.shape = "assets/sprites/obo_right.gif"
         self.x += 4
         if self.x > 435:
             self.x = 435
@@ -396,7 +396,9 @@ class SnowBall:
             if STATE == False:
                 if self.x == -250:
                     left_snowballs.append(
-                        SnowBall(-425, -325, "left", "snow_ball.gif", "white")
+                        SnowBall(
+                            -425, -325, "left", "assets/sprites/snow_ball.gif", "white"
+                        )
                     )
                     print("append")
             if self.x == 450:
@@ -471,23 +473,27 @@ def fire_fire_particles():
         FireParticle.state = "off"
 
 
-player = Player(425, -427, "bob.gif", "white")
+player = Player(425, -427, "assets/sprites/bob.gif", "white")
 
-button = Sprite(0, -135, "button.gif", "red")
+button = Sprite(0, -135, "assets/sprites/button.gif", "red")
 
-fan = Sprite(0, -424, "fan.gif", "red")
+fan = Sprite(0, -424, "assets/sprites/fan.gif", "red")
 
-fan_two = Sprite(400, -276, "fan.gif", "red")
+fan_two = Sprite(400, -276, "assets/sprites/fan.gif", "red")
 
-obo = EnemyAI(-275, 172, "obo.gif", "red")
+obo = EnemyAI(-275, 172, "assets/sprites/obo.gif", "red")
 
 fire_particles = []
 for i in range(20):
-    fire_particles.append(FireParticle(1000, 1000, "orange", "flame.gif"))
+    fire_particles.append(
+        FireParticle(1000, 1000, "orange", "assets/sprites/flame.gif")
+    )
 
 left_snowballs = []
 for _ in range(10):
-    left_snowballs.append(SnowBall(-425, -325, "left", "snow_ball.gif", "white"))
+    left_snowballs.append(
+        SnowBall(-425, -325, "left", "assets/sprites/snow_ball.gif", "white")
+    )
 
 right_snowballs = []
 
